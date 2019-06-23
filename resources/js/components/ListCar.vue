@@ -7,20 +7,7 @@
         <br>
       </div>
 
-      <!--<div class="container">-->
-
-      <!--<form action="/search" method="POST" role="search">-->
-
-      <!--<div class="input-group">-->
-      <!--<input type="text" class="form-control" name="q"-->
-      <!--placeholder="Search users"> <span class="input-group-btn">-->
-      <!--<button type="submit" class="btn btn-default">-->
-      <!--<i class="fal fa-search"></i>-->
-      <!--</button>-->
-      <!--</span>-->
-      <!--</div>-->
-      <!--</form>-->
-      <!--</div>-->
+     
     </div>
     <br>
     <input type="text" class="form-control" name="search">
@@ -48,7 +35,7 @@
           <td>{{voiture.marques.nom_marque}}</td>
           <td>{{voiture.disponibilite}}</td>
 
-          <!--<td>{{voiture.caracterstique}}</td>-->
+        
           <td>
             <img
               v-bind:src="/images/ + voiture.photo"
@@ -67,9 +54,7 @@
               <i class="fas fa-trash-alt"></i>
             </a>
           </td>
-          <!--<td><router-link :to="{name: 'editCar', params: { id: voiture.id }}" class="btn btn-primary">Edit</router-link>-->
-
-          <!--<button class="btn btn-danger" @click.prevent="deleteCar(voiture.id)">Delete</button></td>-->
+        
         </tr>
       </tbody>
     </table>
@@ -107,9 +92,9 @@ export default {
     getAllVoitures() {
       this.axios.get(this.url).then(response => {
         this.voitures = response.data.data;
+        console.log('object', this.voitures)
         this.makePagination(response.data);
-        console.log(response.data);
-        // console.log(response.data[0]['marques']);
+      
       });
     },
 
@@ -154,9 +139,10 @@ export default {
     this.getAllVoitures();
     this.axios.get("api/cars").then(response => {
       this.marquesCar = response.data.data;
+      console.log('object :', this.marquesCar);
     });
 
-    console.log("cars ", this.voitures);
+   
   }
 };
 </script>

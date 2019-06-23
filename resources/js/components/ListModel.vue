@@ -16,22 +16,21 @@
           <th>ID</th>
           <th>Reference model</th>
           <th>Name model</th>
-          <th>Marque</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="modelCar in modelsCar" :key="modelCar.id">
-          <td>{{modelCar.id}}</td>
-          <td>{{modelCar.id_model}}</td>
-          <td>{{modelCar.nom_model}}</td>
-          <td>{{modelCar.marque_model.nom_marque}}</td>
+        <tr v-for="modelCars in modelsCar" :key="modelCars.id">
+          <td>{{modelCars.id}}</td>
+          <td>{{modelCars.id_model}}</td>
+          <td>{{modelCars.nom_model}}</td>
+          <!-- <td>{{modelCars.marque_model.nom_marque}}</td> -->
           <td>
             <router-link
-              :to="{name: 'editModel', params: { id: modelCar.id }}"
+              :to="{name: 'editModel', params: { id: modelCars.id }}"
               class="btn btn-primary"
             >Edit</router-link>
-            <button class="btn btn-danger" @click.prevent="deleteModel(modelCar.id)">Delete</button>
+            <button class="btn btn-danger" @click.prevent="deleteModel(modelCars.id)">Delete</button>
           </td>
         </tr>
       </tbody>

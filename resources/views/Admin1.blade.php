@@ -164,9 +164,10 @@
                 </li>
                 <li class="nav-item dropdown d-none d-xl-inline-block">
                     <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                        <span class="profile-text">Hello, Richard V.Welsh !</span>
-                        <img class="img-xs rounded-circle" src="images/faces/face1.jpg" alt="Profile image">
+                        <span class="profile-text">Helo Admin</span>
+                       
                     </a>
+                    <a  href="/" onclick="logout();" class="nav-link">Déconnexion</a>
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                         <a class="dropdown-item p-0">
                             <div class="d-flex border-bottom">
@@ -361,6 +362,33 @@
 
 <script src="js/app.js" type="text/javascript"></script>
 
+<script>
+   
+//    new Vue({
+//     el: "#app",
+
+     
+    
+     
+//       methods: {
+//         logout:function() {
+//           localStorage.clear();
+//           Vue.swal({
+//             type: "success",
+//             title: "Logout successfully"
+//           });
+         
+//           window.location.reload(true);
+//         }
+    
+       
+//       }
+//     });
+function logout()
+{
+    localStorage.clear();
+}
+    </script>
 
 </body>
 
