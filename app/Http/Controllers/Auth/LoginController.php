@@ -94,12 +94,12 @@ class LoginController extends Controller
             'name' => 'required|string',
             'email' => 'required|string|email',
             'cin' => 'required',
-            'tel' => 'required',
+            'phonenumber' => 'required',
             'address' => 'required|string',
         ]);
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->phonenumber = $request->tel;
+        $user->phonenumber = $request->phonenumber;
         $user->cin = $request->cin;
         $user->address = $request->address;
         $user->update();

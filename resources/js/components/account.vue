@@ -80,14 +80,14 @@
                   <div class="form-group">
                     <input
                       type="text"
-                      name="tel"
+                      name="phonenumber"
                       class="form-control"
                       required="required"
                       rows="7"
                       placeholder="télephone . . ."
                       v-model="userData.phonenumber"
                     >
-                    <span v-if="errors.tel" class="text-danger">{{errors.tel[0]}}</span>
+                    <span v-if="errors.phonenumber" class="text-danger">{{errors.phonenumber[0]}}</span>
                   </div>
                 </div>
                 </div>
