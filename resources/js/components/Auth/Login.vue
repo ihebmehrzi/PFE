@@ -1,82 +1,98 @@
 <template>
+  <div class="col-12 grid-margin">
+    <div class="rq-contact-us-form-content">
+      <div class="rq-car-listing-wrapper">
+        <div class="rq-listing-choose rq-listing-list">
+          <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <br>
+              <br>
+              <form>
+                <div class="form-group">
+                  <label for="email">E-mail</label>
 
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Login</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body mx-3">
-
-
-                <div class="md-form mb-4">
-                    <i class="fas fa-envelope prefix grey-text"></i>
-
-                    <input type="text"  class="form-control validate" v-model="form.email">
-                    <label data-error="wrong" data-success="right" >Your email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    class="form-control"
+                    placeholder="user@example.com"
+                    v-model="fields.email"
+                    required
+                  >
+                  <span v-if="errors.email" class="text-danger">{{errors.email[0]}}</span>
                 </div>
-                <div class="md-form mb-4">
-                    <i class="fas fa-envelope prefix grey-text"></i>
-                    <input type="email"  class="form-control validate" v-model="form.password">
-                    <label data-error="wrong" data-success="right" >password</label>
+
+                <div class="form-group">
+                  <label for="password">Mot de passe</label>
+
+                  <input
+                    type="password"
+                    id="password"
+                    class="form-control"
+                    v-model="fields.password"
+                    required
+                  >
+                  <span v-if="errors.password" class="text-danger">{{errors.password[0]}}</span>
                 </div>
 
+                <button type="button" class="btn btn-default" @click="Login">Connexion</button>
+              </form>
             </div>
-            <div class="modal-footer d-flex justify-content-center">
-                <button class="btn btn-indigo"  @click.prevent="login" data-dismiss="modal">Send<i class="fas fa-paper-plane-o ml-1"></i></button>
-
-            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </template>
-<script type="text/javascript">
-    // import Flash from '../../helpers/flash'
-    // import Auth from '../../store/auth'
-    // import { post } from '../../helpers/api'
-    export default {
-        data() {
-            return {
-                form: {
-                    email: '',
-                    password: ''
-                },
-                error: {},
-                isProcessing: false
-            }
-        },
-        methods: {
-            login() {
-                console.log('test btn email',this.form.email)
-                console.log('test btn password ',this.form.password)
+<script>
+export default {
+  data() {
+    return {
+      fields: {},
+      errors: []
+    };
+  },
 
+  methods: {
+    destroyToken() {
+      localStorage.removeItem("Token");
+      localStorage.removeItem("expiration");
+    },
+    Login() {
+      this.errors = [];
 
+      axios
+        .post("/api/auth/login", this.fields)
+        .then(response => {
+          localStorage.setItem("Token", "Bearer " + response.data.access_token);
+          localStorage.setItem("expiration", response.data.expires_at);
+          localStorage.setItem("user_id", response.data.user_id);
+          this.$router.push("/createR");
+          Vue.swal({
+            type: "success",
+            title: "login with success"
+          });
+        })
+        .catch(err => {
+          if (err.response.status === 422) {
+            this.errors = err.response.data.errors;
 
-                this.isProcessing = true
-                this.error = {}
-                this.axios.post('api/auth/login', this.form)
-                    .then((res) => {
-                        if(res.data) {
-                            // set token
-                           // Auth.set(res.data.api_token, res.data.user_id)
-                           // Flash.setSuccess('You have successfully logged in.')
-
-
-                             console.log("ddddddddd ici ")
-
-                           // localStorage.setItem("state","1")
-                            this.$router.push('/container')
-                        }
-                        this.isProcessing = false
-                    })
-                    .catch((err) => {
-                        if(err.response.status === 422) {
-                            this.error = err.response.data
-                        }
-                        this.isProcessing = false
-                    })
-            }
-        }
+            Vue.swal({
+              type: "error",
+              title: err.response.data.errors.message
+            });
+          }
+          if (err.response) {
+            Vue.swal({
+              type: "error",
+              title: err.response.data.message
+            });
+          }
+        });
+    },
+    created: function() {
+      this.destroyToken();
     }
+  }
+};
 </script>

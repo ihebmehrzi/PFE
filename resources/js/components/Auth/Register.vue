@@ -1,63 +1,119 @@
 <template>
-    <form class="form" @submit.prevent="register">
-        <h1 class="form__title">Create an Account</h1>
-        <div class="form__group">
-            <label>Name</label>
-            <input type="text" class="form__control" v-model="form.name">
-            <small class="error__control" v-if="error.name">{{error.name[0]}}</small>
-        </div>
-        <div class="form__group">
-            <label>Email</label>
-            <input type="text" class="form__control" v-model="form.email">
-            <small class="error__control" v-if="error.email">{{error.email[0]}}</small>
-        </div>
-        <div class="form__group">
-            <label>Password</label>
-            <input type="password" class="form__control" v-model="form.password">
-            <small class="error__control" v-if="error.password">{{error.password[0]}}</small>
-        </div>
+  <div class="col-12 grid-margin">
+    <div class="rq-contact-us-form-content">
+      <div class="rq-car-listing-wrapper">
+        <div class="rq-listing-choose rq-listing-list">
+          <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <br>
+              <br>
+              <form>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input
+                        class="form-control"
+                        name="name"
+                        type="text"
+                        placeholder="Your Name..."
+                        value
+                        size="30"
+                        aria-required="true"
+                        required="required"
+                        v-model="fields.name"
+                      >
+                      <span v-if="errors.name" class="text-danger">{{errors.name[0]}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input
+                        class="form-control"
+                        id="email"
+                        name="email"
+                        type="text"
+                        placeholder="Your email..."
+                        value
+                        size="30"
+                        aria-required="true"
+                        required="required"
+                        v-model="fields.email"
+                      >
+                      <span v-if="errors.email" class="text-danger">{{errors.email[0]}}</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.row -->
 
-        <div class="form__group">
-            <button :disabled="isProcessing" class="btn btn__primary">Register</button>
+                <div class="form-group">
+                  <input
+                    type="password"
+                    name="password"
+                    class="form-control"
+                    required="required"
+                    rows="7"
+                    placeholder="Password. . ."
+                    v-model="fields.password"
+                  >
+                  <span v-if="errors.password" class="text-danger">{{errors.password[0]}}</span>
+                </div>
+                <div class="form-group">
+                  <input
+                    type="password"
+                    name="password_confirmation"
+                    class="form-control"
+                    required="required"
+                    rows="7"
+                    placeholder="password_confirmation . . ."
+                    v-model="fields.password_confirmation"
+                  >
+                  <span
+                    v-if="errors.password_confirmation"
+                    class="text-danger"
+                  >{{errors.password_confirmation[0]}}</span>
+                </div>
+
+                <button type="button" class="btn btn-primary btn-full" @click="Register">Register</button>
+              </form>
+              <!-- /.tr-form -->
+            </div>
+          </div>
         </div>
-    </form>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
-    export  default {
-        data(){
+export default {
+  data() {
+    return {
+      fields: {},
+      errors: []
+    };
+  },
 
-            return {
+  methods: {
+    Register() {
+      this.errors = [];
+      console.log(this.fields);
 
-                    form: {
-                        name: '',
-                        email: '',
-                        password: '',
-
-                    },
-                    error: {},
-                    isProcessing: false
-
-            }
-        },
-        methods: {
-            register(){
-                this.isProcessing = true
-                this.error = {}
-                this.axios.post('api/auth/register', this.form)
-                    .then((res) => {
-                        if(res.data) {
-                           // Flash.setSuccess('Congratulations! You have now successfully registered.')
-                            this.$router.push('/login')
-                        }
-                        this.isProcessing = false
-                    })
-                    .catch((err) => {
-                        if(err.response.status === 422) {
-                            this.error = err.response.data
-                        }
-                        this.isProcessing = false
-                    })
-            }
-        }
+      axios
+        .post("/api/auth/signup", this.fields)
+        .then(response => {
+          this.$router.push("/login");
+          Vue.swal({
+            type: "success",
+            title: "Registred with success"
+          });
+        })
+        .catch(error => {
+          Vue.swal({
+            type: "error",
+            title: "Vérifier les champs"
+          });
+        });
     }
+  },
+  mounted: function() {}
+};
 </script>

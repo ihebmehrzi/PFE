@@ -7,29 +7,21 @@ import ListModel from "./components/ListModel";
 import ConfirmReservation from "./components/ConfirmReservation";
 
 
-
-
 require('./bootstrap');
 
 window.Vue = require('vue');
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
- import AppClient from "./components/AppClient";
-Vue.component('AppClient',require('./components/AppClient.vue').default);
+import AppClient from "./components/AppClient";
+Vue.component('AppClient', require('./components/AppClient.vue').default);
 
 
 
-import Swal from 'sweetalert2'
-window.Swal=Swal;
+import VueSweetalert2 from 'vue-sweetalert2';
 
-const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 8000
-});
-window.Toast=Toast;
+Vue.use(VueSweetalert2);
+
 
 import VueAxios from 'vue-axios';
 import axios from 'axios';
@@ -99,62 +91,79 @@ const routes = [
         name: 'createM', path: '/createM', component: CreateMaintenance
     },
 
-    {name: 'createR', path: '/createR', component: CreateReservationn},
-    {name: 'listR', path: '/listR', component: ListReservation},
-    {name: 'createV', path: '/createV', component: CreateCarr},
-    {name: 'editR', path: '/editR', component: EditReservation},
+    { name: 'createR', path: '/createR', component: CreateReservationn },
+    { name: 'listR', path: '/listR', component: ListReservation },
+    { name: 'createV', path: '/createV', component: CreateCarr },
+    { name: 'editR', path: '/editR', component: EditReservation },
 
-    {name: 'listV', path: '/listV', component: ListCar},
-    {name: 'listModel', path: '/listModel', component: ListModel},
-    {name: 'listCategory', path: '/listCategory', component: ListCategory},
-    {name: 'listMarque', path: '/listMarque', component: ListMarque
+    { name: 'listV', path: '/listV', component: ListCar },
+    { name: 'listModel', path: '/listModel', component: ListModel },
+    { name: 'listCategory', path: '/listCategory', component: ListCategory },
+    {
+        name: 'listMarque', path: '/listMarque', component: ListMarque
     },
-    {name: 'editModel', path: '/editModel', component: EditModelCar
+    {
+        name: 'editModel', path: '/editModel', component: EditModelCar
     },
-    {name: 'createModel', path: '/createModel', component: CreateCarModel
+    {
+        name: 'createModel', path: '/createModel', component: CreateCarModel
     },
-    {name: 'createCarCategory', path: '/createCarCategory', component: CreateCarCategory
+    {
+        name: 'createCarCategory', path: '/createCarCategory', component: CreateCarCategory
     },
-    {name: 'editCategory', path: '/editCategory', component: EditCarCategory
+    {
+        name: 'editCategory', path: '/editCategory', component: EditCarCategory
     },
-    {name: 'editCar', path: '/editCar', component: EditCar},
-    {name: 'createCarMarque', path: '/createCarMarque', component: CreateCarMarque
+    { name: 'editCar', path: '/editCar', component: EditCar },
+    {
+        name: 'createCarMarque', path: '/createCarMarque', component: CreateCarMarque
     },
-    {name: 'editCarMarque', path: '/editCarMarque', component: EditCarMarque
+    {
+        name: 'editCarMarque', path: '/editCarMarque', component: EditCarMarque
     },
-    {name: 'listM', path: '/listM', component:ListMaintenance
+    {
+        name: 'listM', path: '/listM', component: ListMaintenance
     },
-    {name: 'AppClient', path: '/AppClient', component:AppClient
+    {
+        name: 'AppClient', path: '/AppClient', component: AppClient
     },
-    {name: 'registration', path: '/registration', component:Registration
+    {
+        name: 'registration', path: '/registration', component: Registration
     },
-    {name: 'login', path: '/login', component:Login
+    {
+        name: 'login', path: '/login', component: Login
     },
-    {name: 'regitser', path: '/regitser', component:Register
+    {
+        name: 'regitser', path: '/register', component: Register
     },
-    {name: 'container', path: '/container', component:Container
+    {
+        name: 'container', path: '/container', component: Container
     },
-    {name: 'carlist', path: '/carlist', component:CarList
+    {
+        name: 'carlist', path: '/carlist', component: CarList
     },
-    {name: 'details', path: '/details', component:details
+    {
+        name: 'details', path: '/details', component: details
     },
-    {name: 'testimage', path: '/testimage', component:testImage
+    {
+        name: 'testimage', path: '/testimage', component: testImage
     },
-    {name: 'ConfirmReservation', path: '/ConfirmReservation', component:ConfirmReservation
+    {
+        name: 'ConfirmReservation', path: '/ConfirmReservation', component: ConfirmReservation
     },
-    {name: 'email', path: '/email', component: email},
-    {name: 'contact', path: '/contact', component: Contact},
-    {name: 'aboutus', path: '/aboutus', component: AboutUs},
-    {name: 'faq', path: '/faq', component: FAQ},
+    { name: 'email', path: '/email', component: email },
+    { name: 'contact', path: '/contact', component: Contact },
+    { name: 'aboutus', path: '/aboutus', component: AboutUs },
+    { name: 'faq', path: '/faq', component: FAQ },
 
 ];
 
 
-const router = new  VueRouter({ mode: 'history', routes: routes});
+const router = new VueRouter({ mode: 'history', routes: routes });
 
 
 const app = new Vue({
     el: '#app',
     router,
-   components:{ Header1, Test, Footer ,ExampleComponent,Container,email}
+    components: { Header1, Test, Footer, ExampleComponent, email }
 });
