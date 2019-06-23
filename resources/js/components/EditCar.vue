@@ -56,42 +56,34 @@
 </template>
 
 <script>
-
-    export default {
-
-        data() {
-            return {
-                voiture: {},
-                errors: []
-
-            }
-
-        },
-        methods: {
-            updateCar() {
-                this.errors=[];
-                this.axios.patch(`api/cars/${this.$route.params.id}`, this.voiture).then((response) => {
-
-
-                    this.$router.push({name: 'listV'});
-                }).catch(error=>{
-                    if(error.response.status==422){
-                        this.errors=error.response.data.errors
-                    }
-                })
-
-            }
-        },
-        created() {
-
-           // this.errors=[];
-
-            this.axios.get(`api/cars/${this.$route.params.id}`)
-                .then((response) => {
-                    this.voiture = response.data;
-
-            });
-        }
+export default {
+  data() {
+    return {
+      voiture: {},
+      errors: []
+    };
+  },
+  methods: {
+    updateCar() {
+      this.errors = [];
+      this.axios
+        .patch(`api/cars/${this.$route.params.id}`, this.voiture)
+        .then(response => {
+          this.$router.push({ name: "listV" });
+        })
+        .catch(error => {
+          if (error.response.status == 422) {
+            this.errors = error.response.data.errors;
+          }
+        });
     }
+  },
+  created() {
+    // this.errors=[];
 
+    this.axios.get(`api/cars/${this.$route.params.id}`).then(response => {
+      this.voiture = response.data;
+    });
+  }
+};
 </script>

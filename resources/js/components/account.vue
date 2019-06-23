@@ -45,56 +45,56 @@
                     </div>
                   </div>
                   <!-- /.row -->
-                <div class="col-md-6">
-                  <label for="Phone">Cin</label>
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      name="cin"
-                      class="form-control"
-                      required="required"
-                      rows="7"
-                      placeholder="cin. . ."
-                      v-model="userData.cin"
-                    >
-                    <span v-if="errors.cin" class="text-danger">{{errors.cin[0]}}</span>
+                  <div class="col-md-6">
+                    <label for="Phone">Cin</label>
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        name="cin"
+                        class="form-control"
+                        required="required"
+                        rows="7"
+                        placeholder="cin. . ."
+                        v-model="userData.cin"
+                      >
+                      <span v-if="errors.cin" class="text-danger">{{errors.cin[0]}}</span>
+                    </div>
                   </div>
-                </div>
-                <div class="col-md-6">
-                  <label for="Phone">adresse</label>
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      name="adresse"
-                      class="form-control"
-                      required="required"
-                      rows="7"
-                      placeholder="adresse . . ."
-                      v-model="userData.address"
-                    >
-                    <span v-if="errors.address" class="text-danger">{{errors.address[0]}}</span>
+                  <div class="col-md-6">
+                    <label for="Phone">adresse</label>
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        name="adresse"
+                        class="form-control"
+                        required="required"
+                        rows="7"
+                        placeholder="adresse . . ."
+                        v-model="userData.address"
+                      >
+                      <span v-if="errors.address" class="text-danger">{{errors.address[0]}}</span>
+                    </div>
                   </div>
-                </div>
-                <div class="col-md-6">
-                  <label for="Phone">Phone</label>
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      name="phonenumber"
-                      class="form-control"
-                      required="required"
-                      rows="7"
-                      placeholder="télephone . . ."
-                      v-model="userData.phonenumber"
-                    >
-                    <span v-if="errors.phonenumber" class="text-danger">{{errors.phonenumber[0]}}</span>
+                  <div class="col-md-6">
+                    <label for="Phone">Phone</label>
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        name="phonenumber"
+                        class="form-control"
+                        required="required"
+                        rows="7"
+                        placeholder="télephone . . ."
+                        v-model="userData.phonenumber"
+                      >
+                      <span v-if="errors.phonenumber" class="text-danger">{{errors.phonenumber[0]}}</span>
+                    </div>
                   </div>
-                </div>
                 </div>
                 <div class="col-md">
- <button type="button" class="btn btn-primary btn-full" @click="Update">update</button>
-</div>
-                  </form>
+                  <button type="button" class="btn btn-primary btn-full" @click="Update">update</button>
+                </div>
+              </form>
               <!-- /.tr-form -->
             </div>
           </div>

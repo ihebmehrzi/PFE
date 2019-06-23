@@ -77,7 +77,7 @@ export default {
             window.location.reload(true);
           } else {
             this.$router.push("/Adminn");
-              window.location.reload(true);
+            window.location.reload(true);
           }
         })
         .catch(err => {
