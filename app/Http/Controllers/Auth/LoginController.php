@@ -61,6 +61,7 @@ class LoginController extends Controller
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString(),
             'user_id' => $user->id,
+            'user_role' => $user->user_role,
         ]);
 
     }
@@ -76,5 +77,10 @@ class LoginController extends Controller
     public function user(Request $request)
     {
         return response()->json($request->user());
+    }
+    public function dec ()
+    {
+        auth()->logout();
+        return redirect('/');
     }
 }

@@ -262,7 +262,7 @@ const router = new VueRouter({
 router.beforeEach(
     (to, from, next) => {
         if (to.matched.some(record => record.meta.forVisitors)) {
-            if (localStorage.getItem('Token') !== null) {
+            if (localStorage.getItem('Token') !== null && localStorage.getItem('user_role')=='user') {
                 Vue.swal({
                     type: "success",
                     title: "Vous étes connecté"

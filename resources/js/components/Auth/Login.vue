@@ -65,15 +65,20 @@ export default {
         .post("/api/auth/login", this.fields)
         .then(response => {
           localStorage.setItem("Token", "Bearer " + response.data.access_token);
-          localStorage.setItem("expiration", response.data.expires_at);
           localStorage.setItem("user_id", response.data.user_id);
-          this.$router.push("/createR");
-
+          localStorage.setItem("user_role", response.data.user_role);
           Vue.swal({
             type: "success",
             title: "login with success"
           });
+
+          if (localStorage.getItem("user_role") == "user") {
+            this.$router.push("/createR");
             window.location.reload(true);
+          } else {
+            this.$router.push("/Adminn");
+              window.location.reload(true);
+          }
         })
         .catch(err => {
           if (err.response.status === 422) {

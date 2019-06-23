@@ -24,7 +24,7 @@ Route::get('/getModel/{id}', 'CarModelController@getModelByMarque');
 
 Route::get('/getmarq/{id}', 'CarAgencyController@test');
 
-Route::get('/Adminn', function () {
+Route::get('/Adminn' , function () {
     return view('Admin1');
 });
 
