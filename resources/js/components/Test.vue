@@ -167,11 +167,28 @@
                   <router-link to="/aboutus" class="nav-link">About Us</router-link>
                 </li>
 
-                <!-- <li @click.prevent="logout" class="dropdown">Déconnexion</li> -->
-                <li><router-link to="/login" class="nav-link">Login</router-link></router-link>
-
-                <li>
+                <!-- <li v-if="isConnected">
+                  <a @click="logout" class="nav-link">Déconnexion</a>
+                </li>
+                <li v-if="!isConnected">
+                  <router-link to="/login" class="nav-link">Login</router-link>
+                </li>
+                <li v-if="!isConnected">
                   <router-link to="/register" class="nav-link">Inscription</router-link>
+                </li>-->
+
+                <li v-if="isAuth==false" class="tr-dropdown">
+                  <ul class="tr-dropdown-menu" role="menu">
+                    <li>
+                      <router-link to="/login" class="nav-link">Login</router-link>
+                    </li>
+                    <li>
+                      <router-link to="/register" class="nav-link">Inscription</router-link>
+                    </li>
+                  </ul>
+                </li>
+                <li v-if="isAuth==true">
+                  <a @click="logout" class="nav-link">Déconnexion</a>
                 </li>
                 <!--- --------------------------------->
               </ul>
@@ -261,18 +278,18 @@
             <div class="modal-body mx-3">
               <div class="md-form mb-5">
                 <i class="fas fa-user prefix grey-text"></i>
-                <input type="text" id="form3" class="form-control validate" v-model="form.name">
+                <input type="text" id="form3" class="form-control validate">
                 <label data-error="wrong" data-success="right" for="form3">Your name</label>
               </div>
 
               <div class="md-form mb-4">
                 <i class="fas fa-envelope prefix grey-text"></i>
-                <input type="email" class="form-control validate" v-model="form.email">
+                <input type="email" class="form-control validate">
                 <label data-error="wrong" data-success="right">Your email</label>
               </div>
               <div class="md-form mb-4">
                 <i class="fas fa-envelope prefix grey-text"></i>
-                <input type="password" class="form-control validate" v-model="form.password">
+                <input type="password" class="form-control validate">
                 <label data-error="wrong" data-success="right">password</label>
               </div>
             </div>
@@ -300,68 +317,33 @@ import Container from "../components/Container";
 import EventBus from "../components/eventBus";
 export default {
   components: { Header1, Footer, Container },
+  mounted:function(){
+      this.check()
+  },
   data() {
     return {
-      form: {
-        email: "",
-        password: ""
-      },
-      error: {},
-      isProcessing: false,
-      state: "0"
+      isAuth: false,
+      isGuest: false
     };
   },
   methods: {
-    login() {
-      console.log("test btn pass", this.form.password);
-      console.log("test btn email", this.form.email);
-
-      this.isProcessing = true;
-      this.error = {};
-      this.axios
-        .post("api/auth/login", this.form)
-        .then(res => {
-          if (res.data) {
-            // set token
-            // Auth.set(res.data.api_token, res.data.user_id)
-            // Flash.setSuccess('You have successfully logged in.')
-            // EventBus.$emit('data', "1")
-            this.state = "1";
-            this.$router.push("/container");
-          }
-          this.isProcessing = false;
-        })
-        .catch(err => {
-          if (err.response.status === 422) {
-            this.error = err.response.data;
-          }
-          this.isProcessing = false;
-        });
-    },
-    register() {
-      this.isProcessing = true;
-      this.error = {};
-      this.axios
-        .post("api/auth/register", this.form)
-        .then(res => {
-          if (res.data) {
-            // Flash.setSuccess('Congratulations! You have now successfully registered.')
-            this.$router.push("/login");
-          }
-          this.isProcessing = false;
-        })
-        .catch(err => {
-          if (err.response.status === 422) {
-            this.error = err.response.data;
-          }
-          this.isProcessing = false;
-        });
-    },
-
     logout() {
-      this.state = "0";
+      localStorage.clear();
       this.$router.push("/");
-      // this.$router.push('/container')
+      Vue.swal({
+        type: "success",
+        title: "Logout successfully"
+      });
+      this.isAuth = false;
+      this.isGuest = true;
+      window.location.reload(true);
+    },
+
+    check() {
+      if (localStorage.getItem("user_id")) {
+        this.isAuth = true;
+        this.isGuest = false;
+      }
     }
   }
 };

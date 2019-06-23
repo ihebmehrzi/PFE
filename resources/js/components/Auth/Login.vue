@@ -68,10 +68,12 @@ export default {
           localStorage.setItem("expiration", response.data.expires_at);
           localStorage.setItem("user_id", response.data.user_id);
           this.$router.push("/createR");
+
           Vue.swal({
             type: "success",
             title: "login with success"
           });
+            window.location.reload(true);
         })
         .catch(err => {
           if (err.response.status === 422) {
