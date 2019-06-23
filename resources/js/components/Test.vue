@@ -187,8 +187,16 @@
                     </li>
                   </ul>
                 </li>
-                <li v-if="isAuth==true">
+               
+                <li v-if="isAuth==true" class="tr-dropdown">
+                  <ul class="tr-dropdown-menu" role="menu">
+                    <li >
                   <a @click="logout" class="nav-link">Déconnexion</a>
+                </li>
+                    <li>
+                      <router-link to="/profile" class="nav-link"> Mon Compte</router-link>
+                    </li>
+                  </ul>
                 </li>
                 <!--- --------------------------------->
               </ul>

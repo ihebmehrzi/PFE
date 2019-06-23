@@ -48,7 +48,7 @@ import ListMaintenance from "./components/ListMaintenance";
 import ExampleComponent from "./components/ExampleComponent";
 import Registration from "./components/Registration";
 import details from "./components/details";
-
+import account from "./components/account";
 import Test from "./components/Test";
 import Header1 from "./components/Header1";
 import Footer from "./components/Footer";
@@ -96,6 +96,14 @@ const routes = [{
     name: 'createR',
     path: '/createR',
     component: CreateReservationn,
+    meta: {
+        forAuth: true
+    }
+},
+{
+    name: 'account',
+    path: '/profile',
+    component: account,
     meta: {
         forAuth: true
     }

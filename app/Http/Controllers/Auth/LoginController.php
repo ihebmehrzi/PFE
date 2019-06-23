@@ -11,6 +11,10 @@ use Illuminate\Http\Request;
 class LoginController extends Controller
 {
 
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api', ['except' => 'login', 'signup']);
+    // }
     public function signup(Request $request)
     {
         $request->validate([
@@ -78,9 +82,31 @@ class LoginController extends Controller
     {
         return response()->json($request->user());
     }
-    public function dec ()
+    public function dec()
     {
         auth()->logout();
         return redirect('/');
+    }
+    public function userprofile(Request $request)
+    {
+        $user = auth()->user();
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string|email',
+            'cin' => 'required',
+            'tel' => 'required',
+            'address' => 'required|string',
+        ]);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phonenumber = $request->tel;
+        $user->cin = $request->cin;
+        $user->address = $request->address;
+        $user->update();
+
+        return response()->json([
+            'message' => 'Successfully updated user data',
+        ], 201);
+
     }
 }

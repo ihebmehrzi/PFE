@@ -35,11 +35,14 @@ Route::group([
 ], function () {
     Route::post('login', 'Auth\LoginController@login');
     Route::post('signup', 'Auth\LoginController@signup');
+   
 
     Route::group([
         'middleware' => 'auth:api',
     ], function () {
         Route::get('logout', 'Auth\LoginController@logout');
         Route::get('user', 'Auth\LoginController@user');
+        Route::post('profile', 'Auth\LoginController@userprofile');
+       
     });
 });
